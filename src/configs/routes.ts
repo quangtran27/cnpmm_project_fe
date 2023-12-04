@@ -1,13 +1,18 @@
-export const paths = {
+export const routes = {
   home: '/',
   login: '/login',
+  logout: '/logout',
   register: '/register',
+  forgotPassword: '/forgot-password',
   products: '/products',
-  productDetail: '/products/:id',
   cart: '/cart',
+  checkout: '/checkout',
   orders: '/orders',
+  orderDetail: '/orders/:id',
   account: '/account',
   profile: '/account/profile',
   changePassword: '/account/change-password',
   search: '/search',
+  category: '/:id',
+  productDetail: '/:categoryId/:id',
 }

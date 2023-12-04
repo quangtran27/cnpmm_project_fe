@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        auth: 'url("/images/auth_bg.png")',
+      },
       boxShadow: {
         base: '0 0 4px rgba(0,0,0,0.12)',
       },
@@ -11,7 +14,7 @@ export default {
         secondary: '#db2777',
       },
       height: {
-        header: '60px',
+        header: '72px',
       },
     },
   },

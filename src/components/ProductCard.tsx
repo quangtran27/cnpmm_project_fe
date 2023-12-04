@@ -1,27 +1,40 @@
-import { paths } from '@/configs/paths'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { routes } from '@/configs/routes'
+import { Product } from '@/types/products.type'
 import { Link } from 'react-router-dom'
+import Card from './Card'
 
-export default function ProductCard() {
+type ProductCardProps = Product
+
+export default function ProductCard({ ...props }: ProductCardProps) {
   return (
-    <Link to={paths.productDetail.replace(':id', '1')} className='card-compact card bg-white shadow'>
-      <figure>
-        <img
-          src='https://images.thinkgroup.vn/unsafe/1000x1000/https://media-api-beta.thinkpro.vn/media/core/products/2022/9/30/apple-macbook-pro-16-m1-thinkpro-1.png'
-          alt='Macbook'
-        />
-      </figure>
-      <div className='card-body'>
-        <h2 className='card-title'>Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className='card-actions items-center justify-between'>
-          <span className='text-lg font-semibold text-secondary'>99.999.999đ</span>
-          <button className='btn btn-primary btn-outline'>
-            <FontAwesomeIcon icon={faShoppingCart} />
-          </button>
+    <Card size='sm'>
+      <Link
+        to={routes.productDetail.replace(':categoryId', props.categoryId).replace(':id', props.id)}
+        className='flex h-full flex-col'
+      >
+        <figure className='relative aspect-square w-full'>
+          <img
+            className='absolute h-full object-contain'
+            src={props.images.length ? props.images[0] : '/images/default_product.png'}
+            alt={props.name}
+          />
+        </figure>
+        <div className='flex flex-1 flex-col gap-3'>
+          <h2 className='line-clamp-2 overflow-hidden text-ellipsis text-base font-semibold'>{props.name}</h2>
+          <p className='line-clamp-2 overflow-hidden text-ellipsis'>{props.description}</p>
+          <div className='flex flex-1 items-end justify-between'>
+            <span>Đã bán: {props.sold}</span>
+            <span className='text-lg font-semibold text-secondary'>
+              {(props.onSale ? props.salePrice : props.price)
+                .toLocaleString('it-IT', {
+                  style: 'currency',
+                  currency: 'VND',
+                })
+                .replace('VND', 'đ')}
+            </span>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </Card>
   )
 }
