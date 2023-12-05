@@ -39,7 +39,7 @@ export default function Register() {
 
   return (
     <section className='h-screen bg-gray-100 bg-auth bg-cover bg-no-repeat py-1 text-sm'>
-      <div className='mx-auto mt-[18%] flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0'>
+      <div className='mx-auto mt-[18%] flex flex-col items-center justify-center px-6 py-8 lg:py-0'>
         <div className='w-full rounded-2xl border bg-white shadow-sm sm:max-w-md md:mt-0 xl:p-0'>
           <Link to={routes.home} className='mt-6 flex items-center justify-center text-2xl font-semibold'>
             <img className='mr-2 h-10' src='/images/logo.png' alt='logo' />
