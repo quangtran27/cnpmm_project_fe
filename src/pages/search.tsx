@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
 import NotFound from './not-found'
 
-const PAGE_SIZE = '2'
+const PAGE_SIZE = '8'
 
 export default function Search() {
   const [searchParams] = useSearchParams()

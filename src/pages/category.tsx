@@ -11,7 +11,7 @@ import { sortOptions } from '@/utils/samples/filters.sample'
 import { useQuery } from '@tanstack/react-query'
 import { useParams, useSearchParams } from 'react-router-dom'
 
-const PAGE_SIZE = 4
+const PAGE_SIZE = '8'
 
 export default function Category() {
   const { id } = useParams()
