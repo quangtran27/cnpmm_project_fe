@@ -14,6 +14,7 @@ export function emptyPaginatedData<Data>(data: Data): PaginatedRespone<Data> {
     pageSize: 12,
     totalPages: 0,
     currentPage: 0,
+    total: 0,
   }
 }
 
