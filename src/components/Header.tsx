@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <header className='fixed inset-x-0 top-0 z-10 h-header bg-white px-4 shadow lg:px-0'>
       <div className='mx-auto flex h-full max-w-screen-xl items-center gap-6'>
-        <Link to={routes.home} className='h-1/2 lg:h-full lg:py-2'>
+        <Link to={routes.home} className='h-1/2 lg:h-2/3 lg:py-2'>
           <img src='/images/logo.png' className='h-full' alt='' />
         </Link>
         <form className='input input-bordered relative hidden w-[442px] outline-none lg:block' onSubmit={handleSearch}>
