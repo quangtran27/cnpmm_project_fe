@@ -14,7 +14,7 @@ export default function Categories() {
   return (
     <>
       <section className='my-2 px-4 lg:flex lg:px-0'>
-        <div className='inline-flex items-center gap-2'>
+        <div className='mr-3 inline-flex items-center gap-2'>
           <FontAwesomeIcon icon={faBars} />
           <span className='whitespace-nowrap font-semibold'>Danh mục</span>
         </div>
