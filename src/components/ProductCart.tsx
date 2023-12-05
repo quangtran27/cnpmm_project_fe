@@ -81,7 +81,7 @@ export default function ProductCart({ ...props }: ProductCartProps) {
         </div>
       </div>
       <button
-        disabled={isMaximum}
+        disabled={isMaximum || !props.quantity}
         className='btn btn-primary flex-1'
         onClick={() => {
           !isWaiting && handleAddToCart()

@@ -48,12 +48,6 @@ export default function Header() {
         <div className='flex flex-1 justify-end gap-4'>
           {isAuthenticated ? (
             <>
-              <Link to={routes.cart}>
-                <button className='btn indicator'>
-                  <FontAwesomeIcon icon={faCartShopping} />
-                  <span className='badge indicator-item badge-secondary text-white'>{cartItems.length}</span>
-                </button>
-              </Link>
               <Link to={routes.profile}>
                 <button className='btn'>
                   <FontAwesomeIcon icon={faUser} />
@@ -61,9 +55,17 @@ export default function Header() {
               </Link>
             </>
           ) : (
-            <Link to={routes.login} className='btn btn-primary'>
-              Đăng nhập
-            </Link>
+            <>
+              <Link to={routes.cart}>
+                <button className='btn indicator'>
+                  <FontAwesomeIcon icon={faCartShopping} />
+                  <span className='badge indicator-item badge-secondary text-white'>{cartItems.length}</span>
+                </button>
+              </Link>
+              <Link to={routes.login} className='btn btn-primary'>
+                Đăng nhập
+              </Link>
+            </>
           )}
         </div>
       </div>

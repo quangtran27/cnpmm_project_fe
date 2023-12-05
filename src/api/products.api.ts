@@ -1,9 +1,9 @@
-import { ApiResponse, PaginatedData, PaginatedRespone } from '@/types/api.type'
+import { ApiResponse, PaginatedRespone } from '@/types/api.type'
 import { Product } from '@/types/products.type'
 import axios from './axios-instance'
 
 const productsApi = {
-  getAll: async (paginatedData?: Omit<PaginatedData, 'totalPage'>) =>
+  getAll: async (paginatedData?: { currentPage: number; pageSize: number }) =>
     (
       await axios.get<ApiResponse<PaginatedRespone<Product[]>>>('product', {
         params: {

@@ -7,7 +7,8 @@ export type ApiResponse<Data> = {
 export type PaginatedData = {
   currentPage: number
   pageSize: number
-  totalPage: number
+  totalPages: number
+  total: number
 }
 
 export type PaginatedRespone<Data> = PaginatedData & {
