@@ -46,6 +46,12 @@ export default function Header() {
           />
         </form>
         <div className='flex flex-1 justify-end gap-4'>
+          <Link to={routes.cart}>
+            <button className='btn indicator'>
+              <FontAwesomeIcon icon={faCartShopping} />
+              <span className='badge indicator-item badge-secondary text-white'>{cartItems.length}</span>
+            </button>
+          </Link>
           {isAuthenticated ? (
             <>
               <Link to={routes.profile}>
@@ -56,12 +62,6 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link to={routes.cart}>
-                <button className='btn indicator'>
-                  <FontAwesomeIcon icon={faCartShopping} />
-                  <span className='badge indicator-item badge-secondary text-white'>{cartItems.length}</span>
-                </button>
-              </Link>
               <Link to={routes.login} className='btn btn-primary'>
                 Đăng nhập
               </Link>
