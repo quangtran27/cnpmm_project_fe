@@ -2,6 +2,7 @@ import productsApi from '@/api/products.api'
 import Card from '@/components/Card'
 import CartItem from '@/components/CartItem'
 import { routes } from '@/configs/routes'
+import { selectAuth } from '@/features/auth/authSlice'
 import { selectCart } from '@/features/cart/cartSlice'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { toVND } from '@/utils/converters/money.converter'
@@ -15,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom'
 export default function Cart() {
   const cartItems = useAppSelector(selectCart).items
   const navigate = useNavigate()
+  const auth = useAppSelector(selectAuth)
 
   const productsRes = useQueries({
     queries: cartItems.map((item) => {
@@ -40,19 +42,26 @@ export default function Cart() {
   })
 
   const handleOrder = () => {
-    navigate(routes.checkout, {
-      state: {
-        orderItems: productsRes.map((response) => {
-          return {
-            productId: response.data?.data.id,
-            productName: response.data?.data.name,
-            productImage: response.data?.data.images ? response.data?.data.images[0] : '/images/default_product.png',
-            productPrice: response.data?.data.onSale ? response.data?.data.salePrice : response.data?.data.price,
-            quantity: cartItems.find((item) => item.productId === response.data?.data.id)?.quantity ?? 0,
-          }
-        }),
-      },
-    })
+    if (auth.accessToken) {
+      navigate(routes.checkout, {
+        state: {
+          orderItems: productsRes.map((response) => {
+            return {
+              productId: response.data?.data.id,
+              productName: response.data?.data.name,
+              productImage: response.data?.data.images ? response.data?.data.images[0] : '/images/default_product.png',
+              productPrice: response.data?.data.onSale ? response.data?.data.salePrice : response.data?.data.price,
+              quantity: cartItems.find((item) => item.productId === response.data?.data.id)?.quantity ?? 0,
+            }
+          }),
+        },
+      })
+    } else {
+      navigate({
+        pathname: routes.login,
+        search: '?next=' + routes.cart,
+      })
+    }
   }
 
   return (
@@ -108,7 +117,7 @@ export default function Cart() {
                 </tbody>
               </table>
             </div>
-            <button className='btn btn-secondary w-full' onClick={handleOrder}>
+            <button disabled={!cartItems.length} className='btn btn-secondary w-full' onClick={handleOrder}>
               Đặt hàng
             </button>
           </Card>

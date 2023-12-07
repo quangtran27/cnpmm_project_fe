@@ -19,6 +19,9 @@ export default function Login() {
   const dispatch = useAppDispatch()
   const [showPassword, setShowPassWord] = useState(false)
   const [searchParams] = useSearchParams()
+  const next = searchParams.get('next') || routes.home
+
+  console.log(next)
 
   const {
     formState: { errors },
@@ -32,8 +35,10 @@ export default function Login() {
     mutationFn: (data: LoginSchema) => authApi.login(data),
     onSuccess: (res) => {
       if (res.data.user.status) {
+        navigate({
+          pathname: next,
+        })
         dispatch(login(res.data))
-        navigate(searchParams.get('next') ?? routes.home)
       } else {
         toast.error('Tài khoản của bạn đã bị khoá')
       }
