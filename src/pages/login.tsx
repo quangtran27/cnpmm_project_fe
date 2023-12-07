@@ -31,8 +31,12 @@ export default function Login() {
   const loginMutation = useMutation({
     mutationFn: (data: LoginSchema) => authApi.login(data),
     onSuccess: (res) => {
-      dispatch(login(res.data))
-      navigate(searchParams.get('next') ?? routes.home)
+      if (res.data.user.status) {
+        dispatch(login(res.data))
+        navigate(searchParams.get('next') ?? routes.home)
+      } else {
+        toast.error('Tài khoản của bạn đã bị khoá')
+      }
     },
     onError: (res: AxiosError) => {
       toast.error('Đăng nhập không thành công: ' + (res.response?.data as ApiResponse<string>).message)
