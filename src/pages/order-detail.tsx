@@ -1,18 +1,21 @@
 import orderApi from '@/api/order.api'
 import AccountMenu from '@/components/AccountMenu'
 import Card from '@/components/Card'
+import { routes } from '@/configs/routes'
+import { OrderPayment } from '@/types/orders.type'
 import { toVND } from '@/utils/converters/money.converter'
 import { getOrderStatusClass } from '@/utils/converters/order-status.converter'
 import { emptyReponse } from '@/utils/samples/api.sample'
 import { emptyOrderDetail } from '@/utils/samples/orders.sample'
-import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Loading from './loading'
 
 export default function OrderDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const {
     data: { data: order },
@@ -35,10 +38,20 @@ export default function OrderDetail() {
         </div>
         <div className='col-span-3 flex flex-col gap-4 pb-4 lg:col-span-2'>
           <Card size='none' className='p-3 lg:p-6'>
-            <div className='flex'>
-              <h2 className='flex-1'>
-                Chi tiết đơn hàng <span className='font-semibold'>#{id}</span>
-              </h2>
+            <div className='flex items-center'>
+              <div className='flex flex-1 items-center gap-3'>
+                <button
+                  className='btn'
+                  onClick={() => {
+                    navigate(routes.orders)
+                  }}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <div>
+                  Chi tiết đơn hàng <span className='font-semibold'>#{id}</span>
+                </div>
+              </div>
               <span>
                 Trạng thái: <span className={`font-semibold ${statusClass}`}>{order.status}</span>
               </span>
@@ -49,6 +62,21 @@ export default function OrderDetail() {
                 Ngày tạo đơn: <span className='text-primary'>{order.createdAt}</span>
               </div>
               <div>Lần cuối cập nhật: {order.lastUpdatedAt}</div>
+              <div>
+                Phương thức thanh toán:{' '}
+                <span className='font-semibold'>
+                  {order.payment === OrderPayment.cod ? 'COD (Thanh toán khi nhận hàng)' : 'Chuyển khoản ngân hàng'}
+                </span>
+              </div>
+              {order.payment === OrderPayment.banking && (
+                <div className='flex items-center gap-3'>
+                  {order.isPaid ? (
+                    <span className='font-semibold text-success'>Đã thanh toán</span>
+                  ) : (
+                    <span className='font-semibold text-error'>Chưa thanh toán</span>
+                  )}
+                </div>
+              )}
             </div>
             <div className='divider' />
             <div className='rounded-lg border bg-gray-100 p-4'>

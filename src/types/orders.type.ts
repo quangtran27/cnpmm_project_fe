@@ -5,7 +5,10 @@ export enum OrderStatus {
   delivered = 'Đã giao',
   cancelled = 'Đã hủy',
 }
-export type OrderPayment = 'COD' | 'banking'
+export enum OrderPayment {
+  cod = 'COD',
+  banking = 'banking',
+}
 
 export type Order = {
   id: string
@@ -23,7 +26,7 @@ export type OrderDetail = {
   receiverName: string
   receiverPhone: string
   address: string
-  payment: string
+  payment: OrderPayment
   isPaid: boolean
   orderItemList: OrderItem[]
 }

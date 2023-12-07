@@ -1,4 +1,4 @@
-import { OrderDetail, OrderStatus } from '@/types/orders.type'
+import { OrderDetail, OrderPayment, OrderStatus } from '@/types/orders.type'
 
 export const emptyOrderDetail: OrderDetail = {
   id: '',
@@ -9,7 +9,7 @@ export const emptyOrderDetail: OrderDetail = {
   receiverName: '',
   receiverPhone: '',
   address: '',
-  payment: '',
+  payment: OrderPayment.cod,
   isPaid: false,
   orderItemList: [],
 }
